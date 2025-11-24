@@ -74,3 +74,12 @@ def enviar_correo(productos_df):
         msg["To"] = EMAIL_RECEPTOR
 
         with smtplib.SMTP(SERVIDOR_SMTP, PUERTO_SMTP) as s:
+            s.starttls()
+            s.login(EMAIL_EMISOR, PASSWORD_APP)
+            s.sendmail(EMAIL_EMISOR, EMAIL_RECEPTOR, msg.as_string())
+
+        st.success("Correo enviado correctamente.")
+
+    except Exception as e:
+        st.error(f"Error enviando correo: {e}")
+
